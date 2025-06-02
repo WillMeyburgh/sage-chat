@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sage Chat</title>
+    <link rel="icon" href="/static/img/wizard-hat.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar d-flex flex-column p-3" style="width: 280px; height: 100vh;">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none" id="title">
+                <i class="fas fa-hat-wizard me-2"></i>
+                <span class="fs-5 fw-bold">Sage Chat</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto" id="sage-list">
+                <!-- Sage list items will be dynamically loaded by script.js -->
+            </ul>
+            <hr>
+            <!-- Placeholder for bottom section like "Upgrade plan" -->
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ user.profile_picture if user and user.profile_picture else 'https://github.com/twbs.png' }}" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>{{ user.name if user and user.name else user.email }}</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/auth/logout">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content flex-grow-1 d-flex flex-column">
+            <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img id="current-sage-portrait" src="" alt="Sage Portrait" width="32" height="32" class="rounded-circle me-2 d-none">
+                        <span id="current-sage-name">Socrates</span>
+                    </a>
+                    <div class="d-flex ms-auto">
+                        <!-- Optional: Add refresh/user icon if needed later -->
+                    </div>
+                </div>
+            </header>
+
+            <div class="chat-area flex-grow-1 d-flex flex-column">
+                <div class="chat-box" id="chat-box">
+                    <div id="empty-chat-placeholder" class="message sage-message text-center">
+                        Start a conversation with your Sage...
+                    </div>
+                    <!-- Chat messages will be appended here -->
+                </div>
+            </div>
+
+            <div class="input-area p-3">
+                <div class="input-group chat-input-group">
+                    <input type="text" id="user-input" class="form-control chat-input" placeholder="Ask anything">
+                    <button class="btn btn-primary rounded-pill ms-2" id="send-button"><i class="fas fa-arrow-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

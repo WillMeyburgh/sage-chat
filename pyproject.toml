@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "guru-ai"
+version = "0.1.0"
+description = ""
+authors = ["Will Meyburgh <annekinmeyburgh@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.1.1"
+python-dotenv = "^1.1.0"
+google = "^3.0.0"
+google-genai = "^1.18.0"
+google-auth = "^2.29.0"
+google-auth-oauthlib = "^1.2.0"
+Flask-SQLAlchemy = "^3.1.1"
+Werkzeug = "^3.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

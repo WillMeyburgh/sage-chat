@@ -1,0 +1,249 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #202123 !important; /* Dark background for the overall page, force apply */
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* Prevent overall scroll */
+    color: #ececf1 !important; /* Default text color for dark mode, force apply */
+}
+
+.sidebar {
+    background-color: #202123 !important; /* Darker background for sidebar, force apply */
+    color: #ececf1 !important; /* Light text color, force apply */
+    width: 280px;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    overflow-y: auto; /* Enable scrolling for sidebar content */
+    border-right: 1px solid #343541; /* Subtle dark border */
+    padding: 1rem; /* Adjust padding */
+}
+
+.sidebar a,
+.sidebar .fs-5,
+.sidebar strong,
+.sidebar i,
+.navbar-brand{ /* Apply to all links, Sage Chat title, strong tags, and icons in sidebar */
+    color: #ececf1 !important; /* Default color for sidebar links and elements */
+}
+
+#title i,
+#title span { /* Specific rule for the Sage Chat icon and text */
+    color: #10a37f !important; /* Green color for Sage Chat icon and text */
+}
+
+.sidebar hr {
+    border-top: 1px solid #cccccc; /* Light grey hr for dark mode */
+}
+
+.sidebar .nav-link {
+    /* color is handled by .sidebar a */
+    padding: 10px 12px; /* Adjust padding */
+    border-radius: 5px; /* Slightly rounded corners */
+    transition: background-color 0.2s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #343541; /* Dark hover effect */
+}
+
+.sidebar .nav-link.active {
+    background-color: #343541 !important; /* Dark active background, force apply */
+    font-weight: 500; /* Slightly bolder */
+    /* color is handled by .sidebar a */
+}
+
+.sidebar .dropdown-toggle {
+    /* color is handled by .sidebar a */
+}
+
+.sidebar .dropdown-menu-dark{
+    background-color: #202123 !important; /* Dark dropdown menu, force apply */
+    border: 1px solid #343541;
+}
+
+.sidebar .dropdown-item {
+    /* color is handled by .sidebar a */
+}
+
+.sidebar .dropdown-item:hover {
+    background-color: #343541; /* Dark hover for dropdown items */
+}
+
+.main-content {
+    background-color: #343541; /* Dark background for main chat area */
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 100vh; /* Ensure main content takes full height */
+    position: relative; /* For positioning the input area */
+}
+
+.navbar {
+    background-color: #343541 !important; /* Dark background for navbar */
+    border-bottom: none; /* Remove the border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.chat-area {
+    flex-grow: 1; /* Take all available space */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Ensure children stretch to fill width */
+    padding: 20px; /* Overall padding for the chat area */
+    padding-top: 20px; /* Reduced space for the fixed header */
+    padding-bottom: 120px; /* Space for the floating input */
+    overflow-y: auto; /* Enable scrolling for chat messages */
+    /* Removed align-items: center to allow content to stretch horizontally */
+    position: relative; /* For positioning messages */
+
+}
+
+.chat-box {
+    width: 100%; /* Make chat box fill available width */
+    min-width: 100%; /* Ensure it takes full width even when empty */
+    max-width: 100%; /* Ensure it respects parent's width */
+    height: 100%; /* Ensure it takes full height of its flex parent */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Make chat box fill available vertical space */
+    padding: 0; /* Remove padding as messages will have their own */
+    border: none; /* Remove border */
+    background-color: transparent; /* Transparent background */
+    /* No overflow-y here, parent chat-area handles scrolling */
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    width: 100%; /* Ensure messages take full width */
+}
+
+.user-message {
+    background-color: #444654; /* Darker background for user messages */
+    color: #ececf1; /* Light text */
+    text-align: right; /* Align text to the right within the full-width message */
+}
+
+.sage-message {
+    background-color: #444654; /* Darker background for sage messages */
+    color: #ececf1; /* Light text */
+    text-align: left; /* Align text to the left within the full-width message */
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align to left like sage messages */
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: #444654; /* Same as sage message background */
+}
+
+.typing-indicator .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ececf1; /* Light dots for dark mode */
+    border-radius: 50%;
+    margin: 0 4px;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator .dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+
+.input-area {
+    position: absolute; /* Absolute position relative to main-content */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%; /* Ensure it fills the horizontal space */
+    padding: 20px;
+    background: linear-gradient(to top, rgba(52,53,65,1) 70%, rgba(52,53,65,0)); /* Dark fade effect */
+    display: flex;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.chat-input-group {
+    width: 100%; /* Make input group fill available width */
+    background-color: #40414f; /* Darker input background */
+    border-radius: 25px; /* Rounded corners for the whole group */
+    box-shadow: 0 5px 15px rgba(0,0,0,.1); /* Subtle shadow */
+    padding: 8px 15px; /* Padding inside the input group */
+    display: flex;
+}
+
+.chat-input {
+    border: none !important; /* Remove default input border */
+    box-shadow: none !important; /* Remove default input shadow */
+    flex-grow: 1;
+    padding: 8px 12px;
+    border-radius: 20px; /* Rounded input field */
+    background-color: #40414f; /* Match input group background */
+    color: #ececf1; /* Light text */
+}
+
+.chat-input:focus,
+input.form-control:focus { /* Target both chat-input and Bootstrap's form-control on focus */
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #40414f !important; /* Ensure dark background on focus */
+    color: #ececf1 !important; /* Ensure light text on focus */
+    border-color: transparent !important; /* Remove any default border on focus */
+}
+
+.chat-input::placeholder {
+    color: #8e8ea0; /* Lighter placeholder text */
+}
+
+.chat-input-group .btn {
+    border: none;
+    background-color: transparent;
+    color: #8e8ea0; /* Light gray icons */
+    font-size: 1.2rem;
+    padding: 5px 10px;
+}
+
+.chat-input-group .btn-primary {
+    background-color: #10a37f !important; /* ChatGPT green */
+    border-color: #10a37f !important;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 50%; /* Circular button */
+    width: 40px; /* Fixed width for circular button */
+    height: 40px; /* Fixed height for circular button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.chat-input-group .btn-primary:hover {
+    background-color: #0e8a6f !important;
+    border-color: #0e8a6f !important;
+}
+
+.error-text {
+    color: #dc3545; /* Bootstrap's danger red color */
+    font-weight: bold;
+    margin-top: 10px; /* Add some space above the button */
+    margin-bottom: 10px; /* Add some space below the password field */
+}
