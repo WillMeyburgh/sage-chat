@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session, redirect, url_for
 from flask_login import current_user, login_required
-from guru_ai.database import db
-from guru_ai.model.user import User
+from sage_chat.database import db
+from sage_chat.model.user import User
 
 index_bp = Blueprint('index', __name__)
 

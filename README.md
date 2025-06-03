@@ -1,3 +1,3 @@
-# guru-ai
+# sage-chat
 
 ![alt text](image.png)

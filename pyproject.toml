@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "guru-ai"
+name = "sage-chat"
 version = "0.1.0"
 description = ""
 authors = ["Will Meyburgh <annekinmeyburgh@gmail.com>"]

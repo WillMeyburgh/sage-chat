@@ -1,7 +1,7 @@
-from guru_ai.database import db
-from guru_ai.model.sage import Sage
-from guru_ai.model.user import User
-from guru_ai.model.user_sage_info import UserSageInfo
+from sage_chat.database import db
+from sage_chat.model.sage import Sage
+from sage_chat.model.user import User
+from sage_chat.model.user_sage_info import UserSageInfo
 
 
 class Chat:

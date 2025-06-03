@@ -1,7 +1,7 @@
 import os
 from google.genai import Client, types
 
-from guru_ai.chat import Chat
+from sage_chat.chat import Chat
 
 class AI:
     __SINGLETON = None

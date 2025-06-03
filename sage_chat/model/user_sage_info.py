@@ -1,4 +1,4 @@
-from guru_ai.database import db
+from sage_chat.database import db
 from datetime import datetime
 
 class UserSageInfo(db.Model):

@@ -3,8 +3,8 @@ import os
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from werkzeug.security import generate_password_hash, check_password_hash
-from guru_ai.database import db
-from guru_ai.model.user import User
+from sage_chat.database import db
+from sage_chat.model.user import User
 from flask_login import login_user, logout_user, login_required, current_user
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')

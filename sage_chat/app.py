@@ -6,12 +6,12 @@ from flask_login import LoginManager
 # Load environment variables from .env file
 load_dotenv()
 
-from guru_ai.database import db # Import the db object
-from guru_ai.cli_commands import create_db_command, load_sages_command # Import the CLI commands
-from guru_ai.routes.index import index_bp
-from guru_ai.routes.chat_routes import chat_bp
-from guru_ai.routes.auth_routes import auth_bp
-from guru_ai.model.user import User # Import the User model
+from sage_chat.database import db # Import the db object
+from sage_chat.cli_commands import create_db_command, load_sages_command # Import the CLI commands
+from sage_chat.routes.index import index_bp
+from sage_chat.routes.chat_routes import chat_bp
+from sage_chat.routes.auth_routes import auth_bp
+from sage_chat.model.user import User # Import the User model
 
 # Get the absolute path of the directory containing app.py
 current_dir = os.path.dirname(os.path.abspath(__file__))

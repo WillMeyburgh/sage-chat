@@ -1,4 +1,4 @@
-from guru_ai.database import db
+from sage_chat.database import db
 
 class Sage(db.Model):
     id = db.Column(db.Integer, primary_key=True)

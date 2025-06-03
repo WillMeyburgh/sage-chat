@@ -1,10 +1,10 @@
 import click
 from flask.cli import with_appcontext
-from guru_ai.database import db
+from sage_chat.database import db
 import json
 import os
-from guru_ai.model.user import User # Import User model
-from guru_ai.model.sage import Sage # Import Sage model
+from sage_chat.model.user import User # Import User model
+from sage_chat.model.sage import Sage # Import Sage model
 
 @click.command('create-db')
 @with_appcontext

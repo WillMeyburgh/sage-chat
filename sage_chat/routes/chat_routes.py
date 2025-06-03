@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from guru_ai.ai import AI
-from guru_ai.chat import Chat
-from guru_ai.model.sage import Sage
+from sage_chat.ai import AI
+from sage_chat.chat import Chat
+from sage_chat.model.sage import Sage
 
 chat_bp = Blueprint('chat', __name__)
 
