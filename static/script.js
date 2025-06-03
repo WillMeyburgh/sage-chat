@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateHeader(selectedSage, socratesPortraitUrl);
                     userInput.placeholder = `Chat with ${selectedSage}...`; // Set initial placeholder for Socrates
                 }
+                appendTypingIndicator(); // Show typing indicator initially
                 fetchInitialMessage(selectedSage); // Fetch initial message for the selected sage
             })
             .catch(error => {
@@ -92,8 +93,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Fallback if sages list cannot be loaded
                 updateHeader('Socrates', "/static/img/socrates.jpg"); // Use local fallback portrait
                 userInput.placeholder = `Chat with Socrates...`; // Set placeholder for Socrates fallback
-                fetchInitialMessage('Socrates');
+                appendTypingIndicator(); // Show typing indicator initially
+                fetchInitialMessage('Socrates'); // Fetch initial message for the selected sage
             });
+    }
+
+    // Function to fetch and display initial message
+    function fetchInitialMessage(sageName) {
+        fetch('/get_initial_message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ sage: sageName }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            removeTypingIndicator(); // Remove typing indicator when message arrives
+            appendMessage(data.initial_message, 'sage-message');
+        })
+        .catch(error => {
+            removeTypingIndicator(); // Remove typing indicator even on error
+            console.error('Error fetching initial message:', error);
+            appendMessage('Error: Could not get initial message from the sage.', 'sage-message');
+        });
     }
 
     // Event listeners
@@ -121,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateHeader(selectedSage, portraitUrl);
             
             chatBox.innerHTML = ''; // Clear chat history for new sage
+            appendTypingIndicator(); // Show typing indicator when switching sages
             fetchInitialMessage(selectedSage); // Fetch and display new sage's initial message
             userInput.placeholder = `Chat with ${selectedSage}...`; // Update placeholder text
         }
@@ -177,34 +201,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function appendMessage(message, type) {
-        const placeholder = document.getElementById('empty-chat-placeholder');
-        if (placeholder) {
-            placeholder.remove();
-        }
-
+        // Removed placeholder removal logic as it's no longer in HTML
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
         messageElement.textContent = message;
         chatBox.appendChild(messageElement);
         chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
     }
-
-    // Also remove placeholder when user sends a message
-    sendButton.addEventListener('click', () => {
-        const placeholder = document.getElementById('empty-chat-placeholder');
-        if (placeholder) {
-            placeholder.remove();
-        }
-        sendMessage();
-    });
-
-    userInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const placeholder = document.getElementById('empty-chat-placeholder');
-            if (placeholder) {
-                placeholder.remove();
-            }
-            sendMessage();
-        }
-    });
 });

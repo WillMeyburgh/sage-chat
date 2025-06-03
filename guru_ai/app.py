@@ -1,6 +1,7 @@
 from flask import Flask
 import os
 from dotenv import load_dotenv
+from flask_login import LoginManager
 
 # Load environment variables from .env file
 load_dotenv()
@@ -10,6 +11,7 @@ from guru_ai.cli_commands import create_db_command, load_sages_command # Import 
 from guru_ai.routes.index import index_bp
 from guru_ai.routes.chat_routes import chat_bp
 from guru_ai.routes.auth_routes import auth_bp
+from guru_ai.model.user import User # Import the User model
 
 # Get the absolute path of the directory containing app.py
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -29,6 +31,15 @@ db.init_app(app)
 
 # Set a secret key for session management
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'a_very_secret_key_for_dev') # Use a strong, random key in production!
+
+# Initialize Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'auth.login' # Specify the login view for redirection
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # Register blueprints
 app.register_blueprint(index_bp)

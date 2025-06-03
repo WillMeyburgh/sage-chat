@@ -5,6 +5,7 @@ from google.auth.transport import requests
 from werkzeug.security import generate_password_hash, check_password_hash
 from guru_ai.database import db
 from guru_ai.model.user import User
+from flask_login import login_user, logout_user, login_required, current_user
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -18,8 +19,7 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if user and check_password_hash(user.password_hash, password):
-            session['user_id'] = user.id
-            session['logged_in'] = True
+            login_user(user) # Log in the user with Flask-Login
             return redirect(url_for('index.index')) # Redirect to home page
         else:
             # For simplicity, just re-render with an error message.
@@ -46,9 +46,9 @@ def signup():
         new_user = User(email=email, password_hash=hashed_password)
         db.session.add(new_user)
         db.session.commit()
+        print(f"New user signed up: ID={new_user.id}, Email={new_user.email}")
 
-        session['user_id'] = new_user.id
-        session['logged_in'] = True
+        login_user(new_user) # Log in the new user with Flask-Login
         return redirect(url_for('index.index')) # Redirect to home page
 
     return render_template('signup.html', error=error_message) # Pass error to template
@@ -95,13 +95,13 @@ def google_verify():
                     )
                     db.session.add(new_user)
                     db.session.commit()
+                    print(f"New Google user signed up: ID={new_user.id}, Email={new_user.email}")
                     user = new_user # Set user to the newly created user
                 else:
                     # If intent is 'login' or not specified, return error
                     return jsonify({'success': False, 'message': 'User not found. Please sign up first.', 'redirect_url': url_for('auth.login', error='User not found. Please sign up first.')}), 200
 
-        session['user_id'] = user.id
-        session['logged_in'] = True
+        login_user(user) # Log in the user with Flask-Login
         print(f"Google User Authenticated: ID={user.id}, Email={user.email}, Name={user.name}, Profile Picture={user.profile_picture}")
 
         return jsonify({'success': True, 'message': 'Google login/signup successful', 'user': {'email': email, 'name': name}}), 200
@@ -115,6 +115,5 @@ def google_verify():
 
 @auth_bp.route('/logout')
 def logout():
-    session.pop('user_id', None)
-    session.pop('logged_in', None)
+    logout_user() # Log out the user with Flask-Login
     return redirect(url_for('auth.login')) # Redirect to login page after logout
